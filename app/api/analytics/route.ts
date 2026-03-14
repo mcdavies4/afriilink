@@ -4,11 +4,11 @@ import { getDeviceType } from '@/lib/utils'
 import { headers } from 'next/headers'
 
 export async function POST(req: Request) {
-  const supabase = createServerSupabaseClient()
+  const supabase = await createServerSupabaseClient()
   const body = await req.json()
   const { profile_id, link_id, event } = body
 
-  const headersList = headers()
+  const headersList = await headers()
   const ua = headersList.get('user-agent') || ''
   const device = getDeviceType(ua)
 
@@ -20,7 +20,6 @@ export async function POST(req: Request) {
     referrer: headersList.get('referer') || null,
   })
 
-  // Increment link click count
   if (event === 'link_click' && link_id) {
     await supabase.rpc('increment_click', { link_id })
   }

@@ -9,7 +9,7 @@ interface Props { params: { username: string } }
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://afriilink.com'
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const supabase = createServerSupabaseClient()
+  const supabase = await createServerSupabaseClient()
   const { data: profile } = await supabase
     .from('profiles')
     .select('display_name, bio, seo_title, seo_description, avatar_url, username')
@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function PublicProfilePage({ params }: Props) {
-  const supabase = createServerSupabaseClient()
+  const supabase = await createServerSupabaseClient()
 
   const { data: profile } = await supabase
     .from('profiles')
