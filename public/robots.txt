@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Block dashboard and API routes from crawlers
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://afriilink.com/sitemap.xml
